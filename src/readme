@@ -1,0 +1,8 @@
+-Controller
+ -Replayer 用到了.play, .pause
+  -service
+   -createPlayerService
+    -interpret 暴露send,subscribe,start,stop
+    -createMachine
+     -createUnchangedState
+      -createMatcher 比较值

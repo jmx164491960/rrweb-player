@@ -168,6 +168,7 @@
     goto(timeOffset);
   };
 
+  // 设置速度前先暂停播放
   export const setSpeed = (newSpeed: number) => {
     let needFreeze = playerState === 'playing';
     speed = newSpeed;
@@ -187,6 +188,7 @@
   onMount(() => {
     playerState = replayer.service.state.value as typeof playerState;
     speedState = replayer.speedService.state.value as typeof speedState;
+    console.log('replayer.speedService.state.value as typeof speedState:', replayer.speedService.state.value as typeof speedState)
     replayer.on(
       'state-change',
       (states: { player?: PlayerMachineState; speed?: SpeedMachineState }) => {
@@ -205,6 +207,7 @@
           }
         }
         if (speed?.value && speedState !== speed.value) {
+          console.log('speed.value as typeof speedState:', speed.value as typeof speedState)
           speedState = speed.value as typeof speedState;
         }
       },
@@ -349,6 +352,7 @@
       <span class="rr-timeline__time">{formatTime(meta.totalTime)}</span>
     </div>
     <div class="rr-controller__btns">
+      <!-- 播放与暂停 -->
       <button on:click={toggle}>
         {#if playerState === 'playing'}
           <svg
